@@ -172,14 +172,14 @@ git_ps1_get_info(){
 # git_ps1_get_info and the colors specified by the user in git_ps1_set_colors.
 ################################################################################
 git_ps1(){
-    _git_ps1_in_repo=false
-    _git_ps1_inside_git_dir=false
-    _git_ps1_rebase_state=false
-    _git_ps1_branch=false
-    _git_ps1_has_untracked=false
-    _git_ps1_has_unstaged_changes=false
-    _git_ps1_has_staged_changes=false
-    _git_ps1_time_since_commit=false
+    local _git_ps1_in_repo=false
+    local _git_ps1_inside_git_dir=false
+    local _git_ps1_rebase_state=false
+    local _git_ps1_branch=false
+    local _git_ps1_has_untracked=false
+    local _git_ps1_has_unstaged_changes=false
+    local _git_ps1_has_staged_changes=false
+    local _git_ps1_time_since_commit=false
 
     git_ps1_get_info
 
