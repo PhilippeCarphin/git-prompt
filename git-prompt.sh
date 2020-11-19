@@ -202,9 +202,7 @@ git_ps1(){
 		    time_since_last_commit=" $(git_time_since_commit)"
 	  fi
 
-	  if $_git_ps1_in_repo ; then
-		    echo "\[$fg_color\]($_git_ps1_branch$_git_ps1_rebase_state)$_git_ps1_untracked$time_since_last_commit\[$(tput sgr 0)\]"
-	  fi
+    echo "\[$fg_color\]($_git_ps1_branch$_git_ps1_rebase_state)$_git_ps1_untracked$time_since_last_commit\[$reset_colors\]"
 
 }
 
