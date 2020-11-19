@@ -191,30 +191,10 @@ git_ps1(){
     fi
 
     case $state in
-        headless)
-            if ! [ -z $GIT_PS1_HEADLESS_COLOR ] ; then
-                fg_color=$GIT_PS1_HEADLESS_COLOR
-            else
-                fg_color=$(tput setaf 9)
-            fi
-            ;;
-        clean)
-            if ! [ -z $GIT_PS1_CLEAN_COLOR ] ; then
-                fg_color=$GIT_PS1_CLEAN_COLOR
-            else
-                fg_color=$(tput setaf 2)
-            fi
-            ;;
-        dirty)
-            if ! [ -z $GIT_PS1_DIRTY_COLOR ] ; then
-                fg_color=$GIT_PS1_DIRTY_COLOR
-            else
-                fg_color=$(tput setaf 2)
-            fi
-            ;;
-        *)
-            fg_color=$(tput setaf 3)
-            ;;
+        headless) fg_color=$GIT_PS1_HEADLESS_COLOR ;;
+        clean) fg_color=$GIT_PS1_CLEAN_COLOR ;;
+        dirty) fg_color=$GIT_PS1_DIRTY_COLOR ;;
+        *) fg_color=$(tput setaf 3) ;;
     esac
 
     if ! [ -z $_git_ps1_has_untracked ] ; then
