@@ -86,11 +86,9 @@ git_time_since_commit() {
 #   _git_ps1_time_since_commit
 ################################################################################
 git_ps1_get_info(){
-    # THese three variables would be preceded by the keyword local
-    # if this were a bash-only script.
-    rebasing=""
-    branche=""
-    gitdir=$(git rev-parse --git-dir 2>/dev/null)
+    local rebasing=""
+    local branche=""
+    local gitdir=$(git rev-parse --git-dir 2>/dev/null)
 
     if ! [ -z $gitdir ] ; then
         _git_ps1_in_repo=true
