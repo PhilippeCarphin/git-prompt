@@ -1,3 +1,27 @@
+Download with 
+```
+wget https://gitlab.science.gc.ca/phc001/git-prompt/raw/master/git-prompt.sh
+```
+and simply source it from your `~/.profile` or `~/.profile.d/interactive/post`.
+
+Shows
+```
+ 0 [phc001@hpcr4-in ~/workspace] $ cd a-git-repo/somedir
+ 0 [phc001@hpcr4-in a-git-repo/somedir (master) 2d4h3m] $ ...
+```
+- Exit code of previous command ($?)
+- User@Hostname
+- Current directory
+And if we are inside a git repo:
+
+- The current directory becomes truncated to show only where we are in the repo
+  (can be turned off)
+- Info about the status of the repo
+  - Current branch
+  - Status : the current branch will be displayed in yellow if there are
+    uncommitted changes and green otherwise.
+  - Time since last commit
+
 Based on code from the Agnoster theme for zsh shell and official git-prompt.sh
 (https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh).
 
