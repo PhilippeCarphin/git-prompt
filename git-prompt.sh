@@ -124,7 +124,7 @@ git_ps1_get_info(){
         branch="$(git symbolic-ref HEAD 2>/dev/null)"
 
         if [ -z $branch ] ; then
-            detached=yes
+            detached=true
             branch="$(
                           case "${GIT_PS1_DESCRIBE_STYLE-}" in
                               (contains)
@@ -141,11 +141,15 @@ git_ps1_get_info(){
                 branch="$(cut -c1-7 "$gitdir/HEAD" 2>/dev/null)..." ||
                 branch="unknown"
             branch="($branch)"
+        else
+            detached=false
         fi
     fi
 
     if ! [ -z "$(git ls-files $gitdir/.. --others --exclude-standard 2>/dev/null)" ] ; then
         _git_ps1_has_untracked=true
+    else
+        _git_ps1_has_untracked=false
     fi
 
     if ! git diff --no-ext-diff --quiet --exit-code 2>/dev/null ; then
@@ -169,46 +173,38 @@ git_ps1_get_info(){
 # git_ps1_get_info and the colors specified by the user in git_ps1_set_colors.
 ################################################################################
 git_ps1(){
-    _git_ps1_in_repo=""
-    _git_ps1_inside_git_dir=""
-    _git_ps1_rebase_state=""
-    _git_ps1_branch=""
-    _git_ps1_has_untracked=""
-    _git_ps1_has_unstaged_changes=""
-    _git_ps1_has_staged_changes=""
-    _git_ps1_time_since_commit=""
+    _git_ps1_in_repo=false
+    _git_ps1_inside_git_dir=false
+    _git_ps1_rebase_state=false
+    _git_ps1_branch=false
+    _git_ps1_has_untracked=false
+    _git_ps1_has_unstaged_changes=false
+    _git_ps1_has_staged_changes=false
+    _git_ps1_time_since_commit=false
 
     git_ps1_get_info
 
-    if [ -z $_git_ps1_in_repo ] ; then
+    if ! $_git_ps1_in_repo ; then
         return
     fi
 
-    state=clean
-    if ! [ -z $_git_ps1_headless ] ; then
-        state=headless
-    elif $_git_ps1_has_unstaged_changes ||  $_git_ps1_has_staged_changes ; then
-        state=dirty
+    if $_git_ps1_headless ; then
+        fg_color=$GIT_PS1_HEADLESS_COLOR
+    elif $_git_ps1_has_unstaged_changes || $_git_ps1_has_staged_changes ; then
+        fg_color=$GIT_PS1_DIRTY_COLOR
     else
-        state=clean
+        fg_color=$GIT_PS1_CLEAN_COLOR
     fi
 
-    case $state in
-        headless) fg_color=$GIT_PS1_HEADLESS_COLOR ;;
-        clean) fg_color=$GIT_PS1_CLEAN_COLOR ;;
-        dirty) fg_color=$GIT_PS1_DIRTY_COLOR ;;
-        *) fg_color=$(tput setaf 3) ;;
-    esac
-
-    if ! [ -z $_git_ps1_has_untracked ] ; then
+    if $_git_ps1_has_untracked ; then
         _git_ps1_untracked="[UNTRACKED FILES]"
 	  fi
 
-	  if ! [ -z $_git_ps1_has_staged_changes ] || ! [ -z $_git_ps1_has_unstaged_changes ] ; then
+	  if $_git_ps1_has_staged_changes || $_git_ps1_has_unstaged_changes ; then
 		    time_since_last_commit=" $(git_time_since_commit)"
 	  fi
 
-	  if ! [ -z $_git_ps1_in_repo ] ; then
+	  if $_git_ps1_in_repo ; then
 		    echo "\[$fg_color\]($_git_ps1_branch$_git_ps1_rebase_state)$_git_ps1_untracked$time_since_last_commit\[$(tput sgr 0)\]"
 	  fi
 
