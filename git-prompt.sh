@@ -93,6 +93,7 @@ git_ps1_get_info(){
     if ! [ -z $gitdir ] ; then
         _git_ps1_in_repo=true
     else
+        _git_ps1_in_repo=false
         return
     fi
 
