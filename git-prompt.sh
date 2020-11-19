@@ -233,9 +233,6 @@ make_ps1(){
     prompt_start="\[$prompt_color\][\\u@\\h $(git_pwd)\[$reset_colors\]"
 
     git_part="$(git_ps1)"
-    if ! [ -z "$git_part" ] ; then
-        git_part=" $git_part\[$reset_colors\]"
-    fi
 
     last_part="\[$prompt_color\]] \$\[$reset_colors\] "
 
