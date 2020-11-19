@@ -150,9 +150,13 @@ git_ps1_get_info(){
 
     if ! git diff --no-ext-diff --quiet --exit-code 2>/dev/null ; then
         _git_ps1_has_unstaged_changes=true
+    else
+        _git_ps1_has_unstaged_changes=false
     fi
     if ! git diff --staged --no-ext-diff --quiet --exit-code 2>/dev/null ; then
         _git_ps1_has_staged_changes=true
+    else
+        _git_ps1_has_staged_changes=false
     fi
     _git_ps1_inside_git_dir="$(git rev-parse --is-inside-git-dir 2>/dev/null)"
     _git_ps1_rebase_state=$rebasing
@@ -181,13 +185,12 @@ git_ps1(){
     fi
 
     state=clean
-
     if ! [ -z $_git_ps1_headless ] ; then
         state=headless
-    elif [ -z $_git_ps1_has_unstaged_changes ] && [ -z $_git_ps1_has_staged_changes ] ; then
-        state=clean
-    else
+    elif $_git_ps1_has_unstaged_changes ||  $_git_ps1_has_staged_changes ; then
         state=dirty
+    else
+        state=clean
     fi
 
     case $state in
