@@ -196,11 +196,11 @@ git_ps1(){
 
     if $_git_ps1_has_untracked ; then
         _git_ps1_untracked="[UNTRACKED FILES]"
-	  fi
+    fi
 
-	  if $_git_ps1_has_staged_changes || $_git_ps1_has_unstaged_changes ; then
-		    time_since_last_commit=" $(git_time_since_commit)"
-	  fi
+    if $_git_ps1_has_staged_changes || $_git_ps1_has_unstaged_changes ; then
+        time_since_last_commit=" $(git_time_since_commit)"
+    fi
 
     echo "\[$fg_color\]($_git_ps1_branch$_git_ps1_rebase_state)$_git_ps1_untracked$time_since_last_commit\[$reset_colors\]"
 
