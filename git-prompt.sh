@@ -252,7 +252,7 @@ configure_prompt(){
 
     # Instead of doing PS1=something, we set PROMPT_COMMAND.
     # and that command will be called to set PS1.
-    export PROMPT_COMMAND=make_ps1
+    PROMPT_COMMAND=make_ps1
 }
 
 configure_prompt
