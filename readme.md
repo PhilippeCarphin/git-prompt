@@ -2,12 +2,12 @@ Download with
 ```
 wget https://gitlab.science.gc.ca/phc001/git-prompt/raw/master/git-prompt.sh
 ```
-and simply source it from your `~/.profile` or `~/.profile.d/interactive/post`.
+and simply source it from your `~/.profile` or `~/.bashrc` or `~/.zshrc`.
 
 Shows
 ```
- 0 [phc001@hpcr4-in ~/workspace] $ cd a-git-repo/somedir
- 0 [phc001@hpcr4-in a-git-repo/somedir (master) 2d4h3m] $ ...
+ [pcarphin@mini ~/workspace] $ cd a-git-repo/somedir
+ [pcarphin@mini a-git-repo/somedir (master) 2d4h3m] $ ...
 ```
 
 Based on code from the Agnoster theme for zsh shell and official git-prompt.sh
