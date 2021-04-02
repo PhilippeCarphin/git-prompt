@@ -254,4 +254,3 @@ configure_prompt(){
 }
 
 configure_prompt
-
